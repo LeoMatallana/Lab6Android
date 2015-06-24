@@ -45,8 +45,72 @@ public class Vehicle implements Serializable {
 		
 	/// the size of the vehicle's gas tank (gallons or liters depending on units)  
 	private Float tanksize;
-	
-	/**
+
+	private String plate;
+    private String brand;
+    private String type;
+
+    public String getPlate() {
+        return plate;
+    }
+
+    public void setPlate(String plate) {
+        if(plate==null)
+            throw new IllegalArgumentException("null String");
+
+        if(plate.length()<MIN_NAME_LENGTH || plate.length()>MAX_NAME_LENGTH)
+        {
+            throw new IllegalArgumentException("invalid registration plate length");
+        }
+
+        final String VALID_NAME_REGEX = "[a-zA-z0-9][a-zA-z0-9- ]*";
+        if(!plate.matches(VALID_NAME_REGEX))
+            throw new IllegalArgumentException("invalid format");
+
+        this.plate = plate;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        if(brand==null)
+            throw new IllegalArgumentException("null String");
+
+        if(brand.length()<MIN_NAME_LENGTH || brand.length()>MAX_NAME_LENGTH)
+        {
+            throw new IllegalArgumentException("invalid brand name length");
+        }
+
+        final String VALID_NAME_REGEX = "[a-zA-z0-9][a-zA-z0-9- ]*";
+        if(!brand.matches(VALID_NAME_REGEX))
+            throw new IllegalArgumentException("invalid format");
+
+        this.brand = brand;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        if(type==null)
+            throw new IllegalArgumentException("null String");
+
+        if(type.length()<MIN_NAME_LENGTH || type.length()>MAX_NAME_LENGTH)
+        {
+            throw new IllegalArgumentException("invalid type name length");
+        }
+
+        final String VALID_NAME_REGEX = "[a-zA-z0-9][a-zA-z0-9- ]*";
+        if(!type.matches(VALID_NAME_REGEX))
+            throw new IllegalArgumentException("invalid format");
+
+        this.type = type;
+    }
+
+    /**
 	 * DESCRIPTION:
 	 * Constructs a blank instance of Vehicle.
 	 */
@@ -55,6 +119,9 @@ public class Vehicle implements Serializable {
 		name = "";
 		Units units = new Units(Settings.KEY_UNITS);
 		tanksize = units.getAverageTankSize();
+        plate = "";
+        brand = "";
+        type = "";
 	}
 	
 	/**
@@ -66,6 +133,9 @@ public class Vehicle implements Serializable {
 		this.id = Integer.valueOf(that.id);
 		this.name = new String(that.name);
 		this.tanksize = Float.valueOf(that.tanksize);
+        this.plate = new String(that.plate);
+        this.brand = new String(that.brand);
+        this.type = new String(that.type);
 	}
 	
 	/**
